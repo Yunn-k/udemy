@@ -27,6 +27,8 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\works\in28minutes\learn-spring-boot"/>
+			<item value="D:\works\in28minutes\learn-spring-framework-02"/>
 			<item value="D:\works\in28minutes\learn-spring-framework"/>
 			<item value="D:\works\in28minutes"/>
 		</list>

@@ -8,7 +8,10 @@
     <fullyQualifiedTypeName name="com.in28minutes.learnspringframework.game.GameConsole"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.ComponentScan"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
-    <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.config.ConfigurableBeanFactory"/>
     <fullyQualifiedTypeName name="jakarta.annotation.PreDestroy"/>
+    <fullyQualifiedTypeName name="org.springframework.context.support.ClassPathXmlApplicationContext"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="com.in28minutes.springboot.learnspringboot.Course"/>
+    <fullyQualifiedTypeName name="com.in28minutes.springboot.learnspringboot.CurrencyServiceConfiguration"/>
 </qualifiedTypeNameHistroy>
