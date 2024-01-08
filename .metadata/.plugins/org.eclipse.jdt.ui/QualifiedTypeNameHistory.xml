@@ -14,4 +14,6 @@
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="com.in28minutes.springboot.learnspringboot.Course"/>
     <fullyQualifiedTypeName name="com.in28minutes.springboot.learnspringboot.CurrencyServiceConfiguration"/>
+    <fullyQualifiedTypeName name="org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration"/>
+    <fullyQualifiedTypeName name="org.springframework.jdbc.core.JdbcTemplate"/>
 </qualifiedTypeNameHistroy>
