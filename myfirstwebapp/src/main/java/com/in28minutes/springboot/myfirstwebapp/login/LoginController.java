@@ -6,8 +6,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("name")
 public class LoginController {
 
 	@Autowired
@@ -38,6 +40,8 @@ public class LoginController {
 
 			return "welcome";
 		}
+		
+		model.put("errorMsg", "유효하지 않은 자격증명. 재로그인해주세요");
 		
 		return "login";
 	}
