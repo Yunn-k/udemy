@@ -2,6 +2,8 @@ package com.in28minutes.springboot.myfirstwebapp.todo;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Size;
+
 
 //database
 // List of todos
@@ -16,6 +18,8 @@ public class Todo {
 
 	private int id;
 	private String username;
+	
+	@Size(min=10, message ="enter at least 10 characters") // 여기 쓰는 메세지는 404 에러창에 나올 예정 
 	private String description;
 	private LocalDate targetDate; // java.util.localDate가 아니라 java.time.LocalDate
 	private boolean done;

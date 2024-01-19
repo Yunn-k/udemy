@@ -3,6 +3,7 @@ package com.in28minutes.springboot.myfirstwebapp.todo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Service;
 
@@ -35,4 +36,15 @@ public class TodoService {
 		Todo todo = new Todo(++todosCount, username, description, targetDate, done);
 		todos.add(todo);
 	}
+	
+	public void deleteById(int id) {
+		//todo.getId() == id 이 조건을 predicate에 저장한다
+		//predicate를 정의하는 가장 간단한 방법은 람다식
+		
+		//todo -> todo.getId() == id todo가 호출한 아이디가 parameter의 id와 일치할때 참을 반환한다.
+		Predicate<? super Todo> predicate = todo -> todo.getId() == id; //Prediate는 입력조건에 따라 참/거짓을 반환하는 자바 인터페이스
+		//removeif(predicate) 는 Removes all of the elements of this collection that satisfy the givenpredicate. 
+		todos.removeIf(predicate);
+	}
+	
 }
