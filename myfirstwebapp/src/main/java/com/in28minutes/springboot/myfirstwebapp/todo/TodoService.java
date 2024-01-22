@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.validation.Valid;
+
 @Service
 public class TodoService {
 //	private int id;
@@ -23,7 +25,7 @@ public class TodoService {
 	
 	//정적변수 초기화에는 블록이 필요함
 	static {
-		todos.add(new Todo(++todosCount, "sample", "Learn AWS", LocalDate.now().plusYears(1), false));
+		todos.add(new Todo(++todosCount, "sample", "Learn AWS basic", LocalDate.now().plusYears(1), false));
 		todos.add(new Todo(++todosCount, "sample", "Lean Devops", LocalDate.now().plusYears(2), false));
 		todos.add(new Todo(++todosCount, "sample", "Learn Full Stack Development", LocalDate.now().plusYears(3), false));
 	}
@@ -37,6 +39,13 @@ public class TodoService {
 		todos.add(todo);
 	}
 	
+	
+	public void updateTodo(@Valid Todo todo) {
+		deleteById(todo.getId());
+		todos.add(todo);
+	}
+	
+
 	public void deleteById(int id) {
 		//todo.getId() == id 이 조건을 predicate에 저장한다
 		//predicate를 정의하는 가장 간단한 방법은 람다식
@@ -46,5 +55,19 @@ public class TodoService {
 		//removeif(predicate) 는 Removes all of the elements of this collection that satisfy the givenpredicate. 
 		todos.removeIf(predicate);
 	}
+
+	public Todo findById(int id) {
+		// predicate를 정의
+		Predicate<? super Todo> predicate = todo -> todo.getId() == id;
+		
+		//todos를 읽어들여서 > 필터링하고 > 가장 첫번째 참을 get한다
+		Todo todo = todos.stream().filter(predicate).findFirst().get();
+
+		return todo;
+	}
+
+
+
+
 	
 }

@@ -36,7 +36,7 @@ public class TodoController {
 	@RequestMapping(value = "add-todo", method = RequestMethod.GET)
 	public String showTodoPage(ModelMap model) {
 		String username = (String) model.get("name");
-		Todo todo = new Todo(0, username, "default description", LocalDate.now().plusYears(1), false);
+		Todo todo = new Todo(0, username, "", LocalDate.now().plusYears(1), false);
 		model.put("todo", todo); // username만 가진 깡통을 만들어서 모델에 넣어줌 > post발생시 사용 가능
 		return "todo";
 	}
@@ -56,10 +56,39 @@ public class TodoController {
 		// 값전달
 		String username = (String) model.get("name");
 
-		todoService.addTodo(username, todo.getDescription(), LocalDate.now().plusYears(1), false);
+		todoService.addTodo(username, todo.getDescription(), todo.getTargetDate(), false);
 		return "redirect:list-todos";
 	}
 	
+	
+	// 투두 수정화면
+	@RequestMapping(value = "update-todo",  method = RequestMethod.GET)
+	public String showUpdateTodoPage(@RequestParam int id, ModelMap model) {
+		
+//		todo화면에 있는 modelAttrivute="todo"에 맞춰주기 위해 todo객체를 읽어와서 넣어준다
+		Todo todo = todoService.findById(id);
+		//jsp에 있는 modelAttribute이름과 맞춰줘야 한다
+		model.addAttribute("todo",todo);
+		return "todo";
+	}
+	
+	// 투두 입력 제출
+	@RequestMapping(value = "update-todo", method = RequestMethod.POST)
+	public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
+		// Bean을 바인딩에 쓸 때에는, Model이 첫번째 파라미터가 되어야 한다
+
+		// validation에 따른 result 출력
+		if (result.hasErrors()) {
+			return "todo";
+		}
+
+		// todo.jsp에서 전달하고 있지 않은 username에 대해 직접 읽어와서 set처리해줌.
+		String username = (String) model.get("name");
+		todo.setUsername(username);
+
+		todoService.updateTodo(todo);
+		return "redirect:list-todos";
+	}
 	
 	// 투두 삭제하기
 	@RequestMapping("delete-todo")
