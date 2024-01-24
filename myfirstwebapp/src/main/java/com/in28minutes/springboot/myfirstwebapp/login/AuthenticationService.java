@@ -1,17 +1,17 @@
-package com.in28minutes.springboot.myfirstwebapp.login;
-
-import org.springframework.stereotype.Service;
-
-@Service
-public class AuthenticationService {
-	
-	public boolean authenticate(String username, String password) {
-		
-		boolean isValidUserName = username.equalsIgnoreCase("sample");
-		boolean isValidPassword = password.equalsIgnoreCase("sample");
-		
-		return isValidUserName && isValidPassword;
-		
-	}
-
-}
+//package com.in28minutes.springboot.myfirstwebapp.login;
+//
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//public class AuthenticationService {
+//	
+//	public boolean authenticate(String username, String password) {
+//		
+//		boolean isValidUserName = username.equalsIgnoreCase("sample");
+//		boolean isValidPassword = password.equalsIgnoreCase("sample");
+//		
+//		return isValidUserName && isValidPassword;
+//		
+//	}
+//
+//}
