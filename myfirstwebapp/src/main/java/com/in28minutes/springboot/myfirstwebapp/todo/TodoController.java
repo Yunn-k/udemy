@@ -3,6 +3,8 @@ package com.in28minutes.springboot.myfirstwebapp.todo;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -27,15 +29,19 @@ public class TodoController {
 	// 투두 메인페이지
 	@RequestMapping(value = "list-todos", method = RequestMethod.GET)
 	public String listAllTodos(ModelMap model) {
-		List<Todo> todos = todoService.findByUsername("sample");
+		String name = getLoggedInUserName(model);
+		System.out.println(name);
+		List<Todo> todos = todoService.findByUsername(name);
 		model.addAttribute("todos", todos);
 		return "listTodos";
 	}
 
+
+
 	// 투두 입력버튼
 	@RequestMapping(value = "add-todo", method = RequestMethod.GET)
 	public String showTodoPage(ModelMap model) {
-		String username = (String) model.get("name");
+		String username = getLoggedInUserName(model);
 		Todo todo = new Todo(0, username, "", LocalDate.now().plusYears(1), false);
 		model.put("todo", todo); // username만 가진 깡통을 만들어서 모델에 넣어줌 > post발생시 사용 가능
 		return "todo";
@@ -54,7 +60,7 @@ public class TodoController {
 		}
 
 		// 값전달
-		String username = (String) model.get("name");
+		String username = getLoggedInUserName(model);
 
 		todoService.addTodo(username, todo.getDescription(), todo.getTargetDate(), false);
 		return "redirect:list-todos";
@@ -83,7 +89,7 @@ public class TodoController {
 		}
 
 		// todo.jsp에서 전달하고 있지 않은 username에 대해 직접 읽어와서 set처리해줌.
-		String username = (String) model.get("name");
+		String username = getLoggedInUserName(model);
 		todo.setUsername(username);
 
 		todoService.updateTodo(todo);
@@ -98,6 +104,13 @@ public class TodoController {
 		todoService.deleteById(id);
 		
 		return "redirect:list-todos"; //리다이렉트는 request를 다시 날리는거라서 뷰가 아닌 경로로 잡아줘야 한다.
+	}
+	
+	private String getLoggedInUserName(ModelMap model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+
+		return username;
 	}
 
 

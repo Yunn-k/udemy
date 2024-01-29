@@ -1,5 +1,7 @@
 package com.in28minutes.springboot.myfirstwebapp.login;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +20,18 @@ public class WelcomeController {
 //	@RequestMapping(value="login", method=RequestMethod.GET)
 	@GetMapping("/")
 	public String gotoWelcomePage(ModelMap model) {
-		String name = "hi"; // 사용자 이름은 일단 하드코딩함
-		model.put("name", name);
-
+		model.put("name", getLoggedinUsername());
 		return "welcome";
 	}
-	
-	
+
+	// spring security로부터 username 받기
+	private String getLoggedinUsername() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		System.out.println(username);
+		return username;
+	}
+
 // 로그인이 submit처리되었을때의 처리는 spring security로 넘어간다.
 
 //	@RequestMapping(value="login", method=RequestMethod.POST)

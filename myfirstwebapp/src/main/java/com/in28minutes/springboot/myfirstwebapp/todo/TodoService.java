@@ -25,13 +25,15 @@ public class TodoService {
 	
 	//정적변수 초기화에는 블록이 필요함
 	static {
-		todos.add(new Todo(++todosCount, "sample", "Learn AWS basic", LocalDate.now().plusYears(1), false));
-		todos.add(new Todo(++todosCount, "sample", "Lean Devops", LocalDate.now().plusYears(2), false));
-		todos.add(new Todo(++todosCount, "sample", "Learn Full Stack Development", LocalDate.now().plusYears(3), false));
+		todos.add(new Todo(++todosCount, "sample1", "Learn AWS basic", LocalDate.now().plusYears(1), false));
+		todos.add(new Todo(++todosCount, "sample2", "Lean Devops", LocalDate.now().plusYears(2), false));
+		todos.add(new Todo(++todosCount, "sample1", "Learn Full Stack Development", LocalDate.now().plusYears(3), false));
 	}
 	
 	public List<Todo> findByUsername(String username){
-		return todos;
+		// authentication의 username이 파라미터의 username과 동일할 경우 todo 반환
+		Predicate<? super Todo> predicate = todo -> todo.getUsername().equalsIgnoreCase(username); 
+		return todos.stream().filter(predicate).toList(); // 각 리스트 내역이 filter되어서 list로 리턴함
 	}
 	
 	public void addTodo(String username, String description, LocalDate targetDate, boolean done) {
