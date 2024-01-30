@@ -1,14 +1,17 @@
 package com.in28minutes.springboot.myfirstwebapp.security;
 
-import java.util.function.Function;
+import static org.springframework.security.config.Customizer.withDefaults;
 
+import java.util.function.Function;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SpringSecurityConfiguration {
@@ -42,6 +45,27 @@ public class SpringSecurityConfiguration {
 	@Bean
 	public PasswordEncoder passwordEncoder() { // passwordEncoder 사용시 BCrypePasswordEncoder를 사용하도록 설정
 		return new BCryptPasswordEncoder();
+	}
+	
+	//http요청이 들어올떄 security filter chain이 가장 먼저 작동한다
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		
+		// 모든 요청을 승인하도록 처리
+		http.authorizeHttpRequests(
+				auth -> auth.anyRequest().authenticated());
+
+		// 승인되지 않은 요청은 formLogin을 통해서 사용자이름, 패스워드를 인증
+		//org.springframework.security.config.Customizer<T> -- customizer를 검색해서withDefaults가 있는 인터페이스를 직접 import처리함
+		http.formLogin(withDefaults());
+		
+		//csrf 비활성화
+		http.csrf().disable();
+		
+		// 어플리케이션 프레임 사용 비활성화
+		http.headers().frameOptions().disable();
+	
+		return http.build();
 	}
 
 }

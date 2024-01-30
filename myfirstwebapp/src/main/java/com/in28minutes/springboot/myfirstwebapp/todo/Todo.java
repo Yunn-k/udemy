@@ -2,6 +2,10 @@ package com.in28minutes.springboot.myfirstwebapp.todo;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
 
@@ -9,14 +13,18 @@ import jakarta.validation.constraints.Size;
 // List of todos
 //static list of todos -> dabaabase (h2, mysql)
 
+//Jpa
+// bean -> database
 
-
-
-
-//class
+//spring boot는 entity를 발견하면 h2에 테이블을 생성함
+@Entity
 public class Todo {
 
+	@Id
+	@GeneratedValue
 	private int id;
+	
+	@Column(name = "name") // h2 테이블 컬럼에서 사용할 이름 설정
 	private String username;
 	
 	@Size(min=10, message ="enter at least 10 characters") // 여기 쓰는 메세지는 404 에러창에 나올 예정 
