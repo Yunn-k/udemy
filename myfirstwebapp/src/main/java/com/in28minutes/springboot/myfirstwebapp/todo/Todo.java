@@ -31,6 +31,8 @@ public class Todo {
 	private String description;
 	private LocalDate targetDate; // java.util.localDate가 아니라 java.time.LocalDate
 	private boolean done;
+	
+	public Todo() {}
 
 	public Todo(int id, String username, String description, LocalDate targetDate, boolean done) {
 		super();
