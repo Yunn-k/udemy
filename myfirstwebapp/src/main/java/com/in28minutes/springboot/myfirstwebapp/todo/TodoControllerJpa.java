@@ -55,8 +55,6 @@ public class TodoControllerJpa {
 
 		// validation에 따른 result 출력
 		if (result.hasErrors()) {
-//			String error = "확인요청!! 최소 10자 이상 입력해주세요";
-//			model.addAttribute("errorMsg", error);
 			return "todo";
 		}
 
