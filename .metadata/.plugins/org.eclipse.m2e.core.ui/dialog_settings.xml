@@ -27,12 +27,12 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\works\in28minutes"/>
 			<item value="D:\works\in28minutes\myfirstwebapp"/>
 			<item value="D:\works\in28minutes\learn-jpa-and-hibernate"/>
 			<item value="D:\works\in28minutes\learn-spring-boot"/>
 			<item value="D:\works\in28minutes\learn-spring-framework-02"/>
 			<item value="D:\works\in28minutes\learn-spring-framework"/>
-			<item value="D:\works\in28minutes"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
