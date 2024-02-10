@@ -4,12 +4,15 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import jakarta.validation.Valid;
 
 //rest API를 정의
 @RestController
@@ -41,7 +44,7 @@ public class UserResource {
 	// alendApiTester를 사용해보겠음.
 	// create a user
 	@PostMapping("/users")
-	public ResponseEntity<User> createUser(@RequestBody User user) {
+	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
 		User savedUser = service.save(user);
 
 		// ResponseEntity를 사용해서 build를 해주고, 반환값도 ResponseEntity로 바꿔준다
@@ -53,6 +56,11 @@ public class UserResource {
 								.toUri(); //uri로 변환해서 반환
 
 		return ResponseEntity.created(location).build();
+	}
+	
+	@DeleteMapping("/users/{id}")
+	public void deleteUser(@PathVariable int id) {
+		service.deleteById(id);
 	}
 
 }

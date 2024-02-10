@@ -50,6 +50,10 @@ public class UserDaoService {
 		user.setId(++usersCount);
 		userList.add(user);
 		return user;
-		
+	}
+	
+	public void deleteById (int id) {
+		Predicate<? super User> predicate = user -> user.getId().equals(id);
+		userList.removeIf(predicate); //조건에 맞을 경우 삭제
 	}
 }
